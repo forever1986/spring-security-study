@@ -1,0 +1,14 @@
+server:
+  port: 8080
+spring:
+  # security配置
+  security:
+    user:
+      name: moo
+      password: 1234
+  # redis配置
+  data:
+    redis:
+      host: 127.0.0.1
+
+
