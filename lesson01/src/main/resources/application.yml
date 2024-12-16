@@ -1,0 +1,9 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: lesson01
+  security:
+    user:
+      name: moo
+      password: 1234
