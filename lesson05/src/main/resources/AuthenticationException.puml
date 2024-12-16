@@ -1,0 +1,17 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+interface SecurityExpressionOperations
+interface MethodSecurityExpressionOperations
+abstract class SecurityExpressionRoot
+class MethodSecurityExpressionRoot
+class WebSecurityExpressionRoot
+
+
+SecurityExpressionOperations <|-- MethodSecurityExpressionOperations
+SecurityExpressionOperations <|.. SecurityExpressionRoot
+SecurityExpressionRoot <|-- MethodSecurityExpressionRoot
+MethodSecurityExpressionOperations <|.. MethodSecurityExpressionRoot
+SecurityExpressionRoot <|-- WebSecurityExpressionRoot
+
+@enduml
