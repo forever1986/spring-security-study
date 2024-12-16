@@ -1,0 +1,14 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class AccessDeniedException
+class AuthorizationServiceException
+class AuthorizationDeniedException
+class CsrfException
+
+
+AccessDeniedException <|-- AuthorizationServiceException
+AccessDeniedException <|-- AuthorizationDeniedException
+AccessDeniedException <|-- CsrfException
+
+@enduml
