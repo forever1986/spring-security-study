@@ -1,0 +1,15 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class NoOpPasswordEncoder
+class BCryptPasswordEncoder
+class DelegatingPasswordEncoder
+interface PasswordEncoder
+
+
+PasswordEncoder <|.. NoOpPasswordEncoder
+PasswordEncoder <|.. BCryptPasswordEncoder
+PasswordEncoder <|.. DelegatingPasswordEncoder
+
+
+@enduml

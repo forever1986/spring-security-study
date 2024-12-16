@@ -1,0 +1,16 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class HttpSessionSecurityContextRepository
+class DelegatingSecurityContextRepository
+class NullSecurityContextRepository
+class RequestAttributeSecurityContextRepository
+interface SecurityContextRepository
+
+SecurityContextRepository <|.. HttpSessionSecurityContextRepository
+SecurityContextRepository <|.. DelegatingSecurityContextRepository
+SecurityContextRepository <|.. NullSecurityContextRepository
+SecurityContextRepository <|.. RequestAttributeSecurityContextRepository
+
+
+@enduml

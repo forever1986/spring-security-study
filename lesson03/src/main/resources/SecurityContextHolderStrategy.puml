@@ -1,0 +1,16 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class GlobalSecurityContextHolderStrategy
+class ThreadLocalSecurityContextHolderStrategy
+class InheritableThreadLocalSecurityContextHolderStrategy
+class ListeningSecurityContextHolderStrategy
+interface SecurityContextHolderStrategy
+
+SecurityContextHolderStrategy <|.. GlobalSecurityContextHolderStrategy
+SecurityContextHolderStrategy <|.. ThreadLocalSecurityContextHolderStrategy
+SecurityContextHolderStrategy <|.. InheritableThreadLocalSecurityContextHolderStrategy
+SecurityContextHolderStrategy <|.. ListeningSecurityContextHolderStrategy
+
+
+@enduml

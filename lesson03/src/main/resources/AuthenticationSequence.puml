@@ -1,0 +1,14 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+UsernamePasswordAuthenticationFilter -> AuthenticationManager: 将前端的用户名密码封装成Authentication，\n调用AuthenticationManager的authenticate方法
+AuthenticationManager -> AbstractUserDetailsAuthenticationProvider: 调用AuthenticationProvider的authenticate方法\n其实就是调用AuthenticationProvider实现类方法
+AbstractUserDetailsAuthenticationProvider -> DaoAuthenticationProvider: 调用抽象类的实现类
+DaoAuthenticationProvider -> UserDetailsService: 调用loadUserByUsername方法获得用户信息
+DaoAuthenticationProvider <-- UserDetailsService: 返回用户信息（可能基于内存或者数据库）
+DaoAuthenticationProvider -> DaoAuthenticationProvider: 校验用户与前端传入的密码是否匹配
+UsernamePasswordAuthenticationFilter <-- DaoAuthenticationProvider: 返回认证结果
+UsernamePasswordAuthenticationFilter -> SecurityContextHolder: 将认证结果存入SecurityContext
+@enduml
