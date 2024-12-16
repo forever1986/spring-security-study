@@ -1,0 +1,20 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+interface UserDetailsService{
+    UserDetails loadUserByUsername(String username);
+}
+interface UserDetailsManager{
+    void createUser(UserDetails user);
+    void updateUser(UserDetails user);
+    void changePassword(String oldPassword, String newPassword);
+    boolean userExists(String username);
+}
+class InMemoryUserDetailsManager
+class JdbcUserDetailsManager
+
+UserDetailsService <|-- UserDetailsManager
+UserDetailsManager <|.. InMemoryUserDetailsManager
+UserDetailsManager <|.. JdbcUserDetailsManager
+
+@enduml
