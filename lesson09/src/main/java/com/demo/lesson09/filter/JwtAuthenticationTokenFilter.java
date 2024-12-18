@@ -2,18 +2,19 @@ package com.demo.lesson09.filter;
 
 import com.demo.lesson09.entity.LoginUserDetails;
 import com.demo.lesson09.utils.JwtUtil;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import jakarta.servlet.FilterChain;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Objects;
 
@@ -48,13 +49,13 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
             userAccount = JwtUtil.parseJWT(token);
         } catch (Exception e) {
             e.printStackTrace();
-            throw new RuntimeException("token非法");
+            throw new BadCredentialsException("token非法");
         }
         // 临时缓存中 获取 键 对应 数据
         Object object = redisTemplate.opsForValue().get(userAccount);
         LoginUserDetails loginUser = (LoginUserDetails)object;
         if (Objects.isNull(loginUser)) {
-            throw new RuntimeException("用户未登录");
+            throw new BadCredentialsException("用户未登录");
         }
         // 将用户信息存入 SecurityConText
         // UsernamePasswordAuthenticationToken 存储用户名 密码 权限的集合

@@ -1,10 +1,12 @@
 package com.demo.lesson09.utils;
 
+import io.jsonwebtoken.Header;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
+import java.util.Arrays;
 import java.util.Base64;
 import java.util.Date;
 import java.util.UUID;
@@ -66,9 +68,10 @@ public class JwtUtil {
         long expMillis = nowMillis + ttlMillis;
         Date expDate = new Date(expMillis);
         return Jwts.builder()
+                .setHeaderParam(Header.TYPE, Header.JWT_TYPE)
                 .setId(uuid)            //唯一的ID
                 .setSubject(subject)    // 主题  可以是JSON数据
-                .setIssuer(JWT_KEY)       // 签发者
+                .setIssuer("spring-security-study")       // 签发者
                 .setIssuedAt(now)       // 签发时间
                 .signWith(signatureAlgorithm, secretKey)    //使用HS256对称加密算法签名, 第二个参数为秘钥
                 .setExpiration(expDate)

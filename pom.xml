@@ -12,16 +12,13 @@
         <module>lesson01</module>
         <module>lesson02</module>
         <module>lesson03</module>
-        <module>lesson08</module>
-        <module>lesson09</module>
-        <module>lesson010</module>
-        <module>lesson11</module>
-        <module>lesson12</module>
-        <module>lesson13</module>
         <module>lesson04</module>
         <module>lesson05</module>
         <module>lesson06</module>
         <module>lesson07</module>
+        <module>lesson08</module>
+        <module>lesson09</module>
+        <module>lesson10</module>
     </modules>
 
     <properties>

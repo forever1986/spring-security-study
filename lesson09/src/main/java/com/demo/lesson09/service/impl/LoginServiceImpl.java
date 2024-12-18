@@ -7,8 +7,8 @@ import com.demo.lesson09.service.LoginService;
 import com.demo.lesson09.utils.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,8 +19,9 @@ import java.util.concurrent.TimeUnit;
 @Service
 public class LoginServiceImpl implements LoginService {
 
+    // 注入AuthenticationManagerBuilder，用于获得authenticationManager
     @Autowired
-    private AuthenticationManager authenticationManager;
+    private AuthenticationManagerBuilder authenticationManagerBuilder;
 
     @Autowired
     private RedisTemplate redisTemplate;
@@ -33,7 +34,7 @@ public class LoginServiceImpl implements LoginService {
         String password = loginDTO.getPassword();
         UsernamePasswordAuthenticationToken authenticationToken = UsernamePasswordAuthenticationToken.unauthenticated(username, password);
         try {
-            Authentication authentication = authenticationManager.authenticate(authenticationToken);
+            Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
             if(authentication!=null && authentication.isAuthenticated()){
                 SecurityContextHolder.getContext().setAuthentication(authentication);
                 LoginUserDetails user = (LoginUserDetails)authentication.getPrincipal();
@@ -54,9 +55,9 @@ public class LoginServiceImpl implements LoginService {
     @Override
     public Result<String> logout() {
         if(SecurityContextHolder.getContext().getAuthentication()!=null){
-            LoginUserDetails loginUserDetails = (LoginUserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            if(loginUserDetails!=null){
-                String key = PRE_KEY + loginUserDetails.getTUser().getId();
+            LoginUserDetails user = (LoginUserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            if(user!=null){
+                String key = PRE_KEY + user.getTUser().getId();
                 redisTemplate.delete(key);
             }else {
                 return Result.failed("登出失败，用户不存在");
