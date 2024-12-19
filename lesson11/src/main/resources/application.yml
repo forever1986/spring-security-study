@@ -1,0 +1,12 @@
+server:
+  port: 8080
+
+security:
+  # 白名单
+  ignoreUrls:
+    - httpMethod: 'GET'
+      url: '/demo/get*'
+    - httpMethod: 'POST'
+      url: '/demo/post2'
+
+
