@@ -1,0 +1,56 @@
+# 此为本地备份，如果没有nacos，可以关闭nacos并启用本地配置
+server:
+  port: 8080
+spring:
+  # 配置数据源
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/spring_security_study?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
+    username: root
+    password: root
+    druid:
+      initial-size: 5
+      min-idle: 5
+      maxActive: 20
+      maxWait: 3000
+      timeBetweenEvictionRunsMillis: 60000
+      minEvictableIdleTimeMillis: 300000
+      validationQuery: select 'x'
+      testWhileIdle: true
+      testOnBorrow: false
+      testOnReturn: false
+      poolPreparedStatements: false
+      filters: stat,wall,slf4j
+      connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000;socketTimeout=10000;connectTimeout=1200
+
+  #redis配置
+  data:
+    redis:
+      host: 127.0.0.1
+
+mybatis-plus:
+  global-config:
+    banner: false
+  mapper-locations: classpath:mappers/*.xml
+  type-aliases-package: com.demo.lesson05.entity
+  configuration:
+    cache-enabled: false
+    local-cache-scope: statement
+
+# 日志配置
+logging:
+  level:
+    com.demo: debug
+
+# 密钥加密密码
+rsa:
+  key: linmoo
+  jks: demo.jks
+
+# 白名单
+security:
+  ignoreUrls:
+    - httpMethod: 'POST'
+      url: '/login'
+    - httpMethod: 'POST'
+      url: '/loginphone'

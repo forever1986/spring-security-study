@@ -1,0 +1,26 @@
+server:
+  port: 8080
+spring:
+
+  # 应用名称
+  application:
+    name: demo-biz-service
+
+  # 激活环境
+  profiles:
+    active: dev
+
+  # nacos配置
+  cloud:
+    nacos:
+      config:
+        server-addr: 127.0.0.1:8848
+        namespace: demo-biz
+        group: ${spring.profiles.active}
+        file-extension: yaml
+        username: demo-biz
+        password: demo-biz
+
+logging:
+  level:
+    com.demo.client: debug
